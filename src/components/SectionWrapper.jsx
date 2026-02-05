@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet, useWindowDimensions } from 'react-native';
 import { motion } from 'framer-motion';
 
-const TextReveal = ({ text, isMobile }) => {
+const TextReveal = ({ text, isMobile, isSmallMobile }) => {
   const letters = Array.from(text);
 
   const container = {
@@ -44,10 +44,13 @@ const TextReveal = ({ text, isMobile }) => {
         margin: '0 0 20px 0',
         overflow: 'hidden',
         color: '#ffffff',
-        fontSize: isMobile ? '2rem' : '3rem',
+        fontSize: isSmallMobile ? '1.5rem' : (isMobile ? '1.8rem' : '3rem'), // Even smaller for small mobiles
         fontWeight: '700',
         fontFamily: 'Outfit, sans-serif',
         textShadow: '0 4px 20px rgba(0,0,0,0.5)',
+        textAlign: 'center',
+        maxWidth: '100%',
+        wordWrap: 'break-word',
       }}
       variants={container}
       initial="hidden"
@@ -66,6 +69,7 @@ const TextReveal = ({ text, isMobile }) => {
 export default function SectionWrapper({ children, title, id, footer }) {
   const { width } = useWindowDimensions();
   const isMobile = width < 768;
+  const isSmallMobile = width < 380;
 
   const sectionVariants = {
     hidden: { opacity: 0 },
@@ -94,7 +98,7 @@ export default function SectionWrapper({ children, title, id, footer }) {
   return (
     <View style={styles.sectionContainer} id={id}>
        {/* Section Title with Reveal Effect */}
-       {title && <TextReveal text={title} isMobile={isMobile} />}
+       {title && <TextReveal text={title} isMobile={isMobile} isSmallMobile={isSmallMobile} />}
 
       <motion.div
         variants={sectionVariants}

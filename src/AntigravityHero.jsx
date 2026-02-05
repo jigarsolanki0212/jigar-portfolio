@@ -5,6 +5,7 @@ import { profileData } from './data';
 export default function AntigravityHero() {
   const { width } = useWindowDimensions();
   const isMobile = width < 768;
+  const isSmallMobile = width < 380;
 
   return (
     <View style={[styles.container, { paddingTop: isMobile ? 80 : 100 }]}>
@@ -27,21 +28,25 @@ export default function AntigravityHero() {
         >
         <View style={[styles.profileGlass, { 
             backdropFilter: 'blur(12px)',
-            paddingVertical: isMobile ? 24 : 30,
-            paddingHorizontal: isMobile ? 24 : 40,
+            paddingVertical: isSmallMobile ? 20 : (isMobile ? 24 : 30),
+            paddingHorizontal: isSmallMobile ? 16 : (isMobile ? 24 : 40),
         }]}>
             <Image 
               source={{ uri: '/jigar.png' }} 
-              style={[styles.profileImage, { width: isMobile ? 100 : 120, height: isMobile ? 100 : 120, borderRadius: isMobile ? 50 : 60 }]}
+              style={[styles.profileImage, { 
+                  width: isSmallMobile ? 80 : (isMobile ? 100 : 120), 
+                  height: isSmallMobile ? 80 : (isMobile ? 100 : 120), 
+                  borderRadius: isSmallMobile ? 40 : (isMobile ? 50 : 60) 
+              }]}
               resizeMode="cover"
             />
-            <Text style={[styles.name, { fontSize: isMobile ? 32 : 48 }]}>Jigar Solanki</Text>
-            <Text style={[styles.role, { fontSize: isMobile ? 16 : 20 }]}>Senior React Native Developer</Text>
+            <Text style={[styles.name, { fontSize: isSmallMobile ? 28 : (isMobile ? 32 : 48) }]}>Jigar Solanki</Text>
+            <Text style={[styles.role, { fontSize: isSmallMobile ? 14 : (isMobile ? 16 : 20) }]}>Senior React Native Developer</Text>
             
             <View style={styles.skillsContainer}>
                 {['React Native', 'Reanimated', 'Firebase', 'App Deployment'].map((skill) => (
                     <View key={skill} style={styles.skillBadge}>
-                        <Text style={[styles.skillText, { fontSize: isMobile ? 12 : 14 }]}>{skill}</Text>
+                        <Text style={[styles.skillText, { fontSize: isSmallMobile ? 11 : (isMobile ? 12 : 14) }]}>{skill}</Text>
                     </View>
                 ))}
             </View>
@@ -49,7 +54,7 @@ export default function AntigravityHero() {
             <View style={styles.divider} />
             
             <Text style={styles.aboutTitle}>Architecting Mobile Experiences</Text>
-            <Text style={[styles.summaryText, { fontSize: isMobile ? 14 : 16 }]}>{profileData.summary}</Text>
+            <Text style={[styles.summaryText, { fontSize: isSmallMobile ? 13 : (isMobile ? 14 : 16) }]}>{profileData.summary}</Text>
         </View>
         </motion.div>
       </View>
