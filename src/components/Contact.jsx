@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Linking, TouchableOpacity } from 'react-native'
 import SectionWrapper from './SectionWrapper';
 import { profileData } from '../data';
 import { Mail, Phone, Linkedin, MapPin, BookOpen } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export default function Contact() {
   const handleLink = (url) => {
@@ -19,34 +20,44 @@ export default function Contact() {
     >
       <View style={styles.grid}>
         {/* Email */}
-        <TouchableOpacity onPress={() => handleLink(`mailto:${profileData.contact.email}`)} style={[styles.card, { backdropFilter: 'blur(10px)' }]}>
-            <Mail color="#38bdf8" size={32} />
-            <Text style={styles.text}>{profileData.contact.email}</Text>
-        </TouchableOpacity>
+        <motion.div whileHover={{ scale: 1.05, y: -5, zIndex: 10 }}>
+            <TouchableOpacity onPress={() => handleLink(`mailto:${profileData.contact.email}`)} style={[styles.card, { backdropFilter: 'blur(10px)' }]}>
+                <Mail color="#38bdf8" size={32} />
+                <Text style={styles.text}>{profileData.contact.email}</Text>
+            </TouchableOpacity>
+        </motion.div>
 
         {/* Phone */}
-        <TouchableOpacity onPress={() => handleLink(`tel:${profileData.contact.phone}`)} style={[styles.card, { backdropFilter: 'blur(10px)' }]}>
-            <Phone color="#22c55e" size={32} />
-            <Text style={styles.text}>{profileData.contact.phone}</Text>
-        </TouchableOpacity>
+        <motion.div whileHover={{ scale: 1.05, y: -5, zIndex: 10 }}>
+            <TouchableOpacity onPress={() => handleLink(`tel:${profileData.contact.phone}`)} style={[styles.card, { backdropFilter: 'blur(10px)' }]}>
+                <Phone color="#22c55e" size={32} />
+                <Text style={styles.text}>{profileData.contact.phone}</Text>
+            </TouchableOpacity>
+        </motion.div>
 
         {/* LinkedIn */}
-        <TouchableOpacity onPress={() => handleLink(`https://${profileData.contact.linkedin}`)} style={[styles.card, { backdropFilter: 'blur(10px)' }]}>
-            <Linkedin color="#0ea5e9" size={32} />
-            <Text style={styles.text}>LinkedIn Profile</Text>
-        </TouchableOpacity>
+        <motion.div whileHover={{ scale: 1.05, y: -5, zIndex: 10 }}>
+            <TouchableOpacity onPress={() => handleLink(`https://${profileData.contact.linkedin}`)} style={[styles.card, { backdropFilter: 'blur(10px)' }]}>
+                <Linkedin color="#0ea5e9" size={32} />
+                <Text style={styles.text}>LinkedIn Profile</Text>
+            </TouchableOpacity>
+        </motion.div>
 
         {/* Medium */}
-        <TouchableOpacity onPress={() => handleLink(`https://${profileData.contact.medium}`)} style={[styles.card, { backdropFilter: 'blur(10px)' }]}>
-            <BookOpen color="#000000" fill="#ffffff" size={32} /> 
-            <Text style={styles.text}>Medium Articles</Text>
-        </TouchableOpacity>
+        <motion.div whileHover={{ scale: 1.05, y: -5, zIndex: 10 }}>
+            <TouchableOpacity onPress={() => handleLink(`https://${profileData.contact.medium}`)} style={[styles.card, { backdropFilter: 'blur(10px)' }]}>
+                <BookOpen color="#000000" fill="#ffffff" size={32} /> 
+                <Text style={styles.text}>Medium Articles</Text>
+            </TouchableOpacity>
+        </motion.div>
 
          {/* Location */}
-         <View style={[styles.card, { backdropFilter: 'blur(10px)' }]}>
-            <MapPin color="#f43f5e" size={32} />
-            <Text style={styles.text}>{profileData.contact.location}</Text>
-        </View>
+         <motion.div whileHover={{ scale: 1.05, y: -5, zIndex: 10 }}>
+            <View style={[styles.card, { backdropFilter: 'blur(10px)' }]}>
+                <MapPin color="#f43f5e" size={32} />
+                <Text style={styles.text}>{profileData.contact.location}</Text>
+            </View>
+        </motion.div>
       </View>
           </SectionWrapper>
   );

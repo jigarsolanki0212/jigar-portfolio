@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { motion } from 'framer-motion';
 import SectionWrapper from './SectionWrapper';
 import { profileData } from '../data';
 
@@ -11,11 +12,21 @@ export default function Education() {
         <View style={styles.block}>
              <Text style={styles.subtitle}>Academic</Text>
             {profileData.education.map((edu, index) => (
-                <View key={index} style={[styles.card, { backdropFilter: 'blur(10px)' }]}>
-                    <Text style={styles.degree}>{edu.degree}</Text>
-                    <Text style={styles.school}>{edu.school}</Text>
-                    <Text style={styles.year}>{edu.year}</Text>
-                </View>
+                <motion.div
+                    key={index}
+                    whileHover={{ 
+                        scale: 1.02, 
+                        y: -5,
+                        boxShadow: "0px 15px 30px rgba(56, 189, 248, 0.2)",
+                    }}
+                    style={{ width: '100%' }}
+                >
+                    <View style={[styles.card, { backdropFilter: 'blur(10px)' }]}>
+                        <Text style={styles.degree}>{edu.degree}</Text>
+                        <Text style={styles.school}>{edu.school}</Text>
+                        <Text style={styles.year}>{edu.year}</Text>
+                    </View>
+                </motion.div>
             ))}
         </View>
 
@@ -24,9 +35,18 @@ export default function Education() {
             <Text style={styles.subtitle}>Certifications</Text>
             <View style={styles.certGrid}>
                 {profileData.certifications.map((cert, index) => (
-                    <View key={index} style={[styles.certCard, { backdropFilter: 'blur(10px)' }]}>
-                        <Text style={styles.certText}>{cert}</Text>
-                    </View>
+                    <motion.div
+                        key={index}
+                        whileHover={{ 
+                            scale: 1.05, 
+                            y: -3,
+                            boxShadow: "0px 10px 20px rgba(34, 197, 94, 0.2)", // Green tint for certs
+                        }}
+                    >
+                        <View style={[styles.certCard, { backdropFilter: 'blur(10px)' }]}>
+                            <Text style={styles.certText}>{cert}</Text>
+                        </View>
+                    </motion.div>
                 ))}
             </View>
         </View>

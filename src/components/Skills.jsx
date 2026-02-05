@@ -29,7 +29,12 @@ export default function Skills() {
                           backdropFilter: 'blur(8px)',
                           cursor: 'default',
                         }}
-                        whileHover={{ scale: 1.05, backgroundColor: 'rgba(255, 255, 255, 0.1)' }}
+                        whileHover={{ 
+                            scale: 1.05, 
+                            y: -5,
+                            backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                            boxShadow: "0px 10px 20px rgba(56, 189, 248, 0.2)",
+                        }}
                         initial={{ opacity: 0, scale: 0.8 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.4, delay: i * 0.05 }}

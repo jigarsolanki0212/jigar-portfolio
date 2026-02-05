@@ -1,11 +1,25 @@
 import { View, Text, StyleSheet, Image } from 'react-native';
-
+import { motion } from 'framer-motion';
 import { profileData } from './data';
 
 export default function AntigravityHero() {
   return (
     <View style={styles.container}>
       <View style={styles.centerContent}>
+        <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8 }}
+            whileHover={{ 
+                scale: 1.02, 
+                y: -5,
+                boxShadow: "0px 15px 30px rgba(56, 189, 248, 0.2)",
+            }}
+            style={{
+                borderRadius: 24,
+                cursor: 'default',
+            }}
+        >
         <View style={[styles.profileGlass, { backdropFilter: 'blur(12px)' }]}>
             <Image 
               source={{ uri: '/jigar.png' }} 
@@ -28,6 +42,7 @@ export default function AntigravityHero() {
             <Text style={styles.aboutTitle}>Architecting Mobile Experiences</Text>
             <Text style={styles.summaryText}>{profileData.summary}</Text>
         </View>
+        </motion.div>
       </View>
     </View>
   );
@@ -47,6 +62,8 @@ const styles = StyleSheet.create({
     zIndex: 20,
     alignItems: 'center',
     justifyContent: 'center',
+    width: '100%',
+    maxWidth: 800,
   },
   profileGlass: {
     paddingVertical: 30,

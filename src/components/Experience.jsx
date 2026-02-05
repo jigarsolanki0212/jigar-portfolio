@@ -25,6 +25,12 @@ export default function Experience() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6, delay: index * 0.1 }}
+            whileHover={{ 
+                scale: 1.02, 
+                y: -5,
+                boxShadow: "0px 15px 30px rgba(56, 189, 248, 0.2)",
+                zIndex: 10
+            }}
           >
             <View style={styles.header}>
                 <View>
