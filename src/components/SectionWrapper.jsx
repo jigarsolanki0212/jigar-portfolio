@@ -65,7 +65,7 @@ const TextReveal = ({ text, isMobile }) => {
   );
 };
 
-export default function SectionWrapper({ children, title, id }) {
+export default function SectionWrapper({ children, title, id, footer }) {
   const isMobile = width < 768;
 
   const sectionVariants = {
@@ -108,6 +108,8 @@ export default function SectionWrapper({ children, title, id }) {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
+          flex: 1, // Allow content to fill space
+          justifyContent: 'center', // Keep vertical centering
         }}
       >
         {/* Pass variants context to children if they use motion components, 
@@ -116,18 +118,22 @@ export default function SectionWrapper({ children, title, id }) {
             {children}
         </motion.div>
       </motion.div>
+      
+      {/* Footer rendered outside animation loop */}
+      {footer && footer}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   sectionContainer: {
-    paddingVertical: 100, // Increased padding
+    paddingVertical: 100,
     paddingHorizontal: 20,
     width: '100%',
-    minHeight: '80vh', // Ensure it takes up significant space
-    justifyContent: 'center', // Center content vertically
+    minHeight: '80vh',
+    justifyContent: 'center',
     alignItems: 'center',
     zIndex: 10,
+    position: 'relative', // Context for absolute footer
   },
 });

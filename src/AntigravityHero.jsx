@@ -1,5 +1,7 @@
 import { View, Text, StyleSheet, Image } from 'react-native';
 
+import { profileData } from './data';
+
 export default function AntigravityHero() {
   return (
     <View style={styles.container}>
@@ -20,6 +22,11 @@ export default function AntigravityHero() {
                     </View>
                 ))}
             </View>
+
+            <View style={styles.divider} />
+            
+            <Text style={styles.aboutTitle}>Architecting Mobile Experiences</Text>
+            <Text style={styles.summaryText}>{profileData.summary}</Text>
         </View>
       </View>
     </View>
@@ -34,6 +41,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: '100%',
     height: '100%',
+    paddingTop: 100, // Push content down to avoid navbar overlap
   },
   centerContent: {
     zIndex: 20,
@@ -95,5 +103,27 @@ const styles = StyleSheet.create({
     color: '#e2e8f0',
     fontSize: 14,
     fontWeight: '500',
+  },
+  divider: {
+    width: '60%',
+    height: 1,
+    backgroundColor: 'rgba(255,255,255,0.1)',
+    marginVertical: 24,
+  },
+  aboutTitle: {
+    fontSize: 18,
+    color: '#38bdf8',
+    fontWeight: '600',
+    marginBottom: 12,
+    fontFamily: 'Outfit, sans-serif',
+    letterSpacing: 0.5,
+  },
+  summaryText: {
+    fontSize: 16,
+    lineHeight: 26,
+    color: '#cbd5e1',
+    textAlign: 'center',
+    maxWidth: 600,
+    fontFamily: 'system-ui, -apple-system, sans-serif',
   },
 });

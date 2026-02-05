@@ -10,7 +10,13 @@ export default function Contact() {
   };
 
   return (
-    <SectionWrapper title="Get in Touch" id="contact">
+    <SectionWrapper 
+      title="Get in Touch" 
+      id="contact"
+      footer={
+        <Text style={styles.footer}>© {new Date().getFullYear()} Jigar Solanki. Built with React Native Web & Framer Motion.</Text>
+      }
+    >
       <View style={styles.grid}>
         {/* Email */}
         <TouchableOpacity onPress={() => handleLink(`mailto:${profileData.contact.email}`)} style={[styles.card, { backdropFilter: 'blur(10px)' }]}>
@@ -36,9 +42,7 @@ export default function Contact() {
             <Text style={styles.text}>{profileData.contact.location}</Text>
         </View>
       </View>
-      
-      <Text style={styles.footer}>© {new Date().getFullYear()} Jigar Solanki. Built with React Native Web & Framer Motion.</Text>
-    </SectionWrapper>
+          </SectionWrapper>
   );
 }
 
@@ -71,8 +75,11 @@ const styles = StyleSheet.create({
   },
   footer: {
       color: '#64748b',
-      marginTop: 40,
       fontSize: 14,
       textAlign: 'center',
+      position: 'absolute',
+      bottom: 20,
+      width: '100%',
+      left: 0,
   }
 });

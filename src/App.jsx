@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import AntigravityHero from './AntigravityHero';
-import Summary from './components/Summary';
 import Experience from './components/Experience';
 import Skills from './components/Skills';
 import Projects from './components/Projects';
@@ -9,6 +8,7 @@ import Education from './components/Education';
 import Contact from './components/Contact';
 import Navbar from './components/Navbar';
 import FloatingBackground from './components/FloatingBackground';
+import FloatingActions from './components/FloatingActions';
 
 function App() {
   // Simple scroll reset on mount
@@ -20,6 +20,7 @@ function App() {
     <View style={styles.container}>
       <FloatingBackground />
       <Navbar />
+      <FloatingActions />
       <ScrollView 
         contentContainerStyle={styles.scrollContent} 
         showsVerticalScrollIndicator={false}
@@ -30,7 +31,6 @@ function App() {
           </View>
           
           <View style={styles.sections}>
-            <View id="about"><Summary /></View>
             <View id="experience"><Experience /></View>
             <View id="skills"><Skills /></View>
             <View id="projects"><Projects /></View>
