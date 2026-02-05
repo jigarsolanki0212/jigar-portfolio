@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, Linking, TouchableOpacity } from 'react-native';
 import SectionWrapper from './SectionWrapper';
 import { profileData } from '../data';
-import { Mail, Phone, Linkedin, MapPin } from 'lucide-react';
+import { Mail, Phone, Linkedin, MapPin, BookOpen } from 'lucide-react';
 
 export default function Contact() {
   const handleLink = (url) => {
@@ -34,6 +34,12 @@ export default function Contact() {
         <TouchableOpacity onPress={() => handleLink(`https://${profileData.contact.linkedin}`)} style={[styles.card, { backdropFilter: 'blur(10px)' }]}>
             <Linkedin color="#0ea5e9" size={32} />
             <Text style={styles.text}>LinkedIn Profile</Text>
+        </TouchableOpacity>
+
+        {/* Medium */}
+        <TouchableOpacity onPress={() => handleLink(`https://${profileData.contact.medium}`)} style={[styles.card, { backdropFilter: 'blur(10px)' }]}>
+            <BookOpen color="#000000" fill="#ffffff" size={32} /> 
+            <Text style={styles.text}>Medium Articles</Text>
         </TouchableOpacity>
 
          {/* Location */}

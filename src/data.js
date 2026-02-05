@@ -8,6 +8,7 @@ export const profileData = {
     email: "jigarsolanki.dev@gmail.com",
     phone: "9157772566",
     linkedin: "www.linkedin.com/in/jigar-s",
+    medium: "medium.com/@jigar-solanki",
     location: "Ahmedabad, India"
   },
   skills: {
