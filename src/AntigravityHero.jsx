@@ -1,11 +1,15 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 
 export default function AntigravityHero() {
   return (
     <View style={styles.container}>
       <View style={styles.centerContent}>
         <View style={[styles.profileGlass, { backdropFilter: 'blur(12px)' }]}>
+            <Image 
+              source={{ uri: '/jigar.png' }} 
+              style={styles.profileImage}
+              resizeMode="cover"
+            />
             <Text style={styles.name}>Jigar Solanki</Text>
             <Text style={styles.role}>Senior React Native Developer</Text>
             
@@ -48,6 +52,15 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 10 },
     shadowOpacity: 0.5,
     shadowRadius: 20,
+  },
+  profileImage: {
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+    borderWidth: 3,
+    borderColor: 'rgba(255, 255, 255, 0.2)',
+    marginBottom: 20,
+    backgroundColor: 'rgba(255, 255, 255, 0.05)',
   },
   name: {
     fontSize: 48,
