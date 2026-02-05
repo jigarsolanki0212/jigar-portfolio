@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     textAlign: 'center',
     marginBottom: 8,
-    fontFamily: 'system-ui, -apple-system, sans-serif',
+    fontFamily: 'Outfit, sans-serif',
   },
   role: {
     fontSize: 20,

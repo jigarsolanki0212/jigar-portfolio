@@ -48,6 +48,11 @@ export default function Projects() {
                         onPress={() => toggleExpand(index)}
                         style={styles.cardHeader}
                     >
+                        {/* Project Image Placeholder */}
+                        <View style={styles.imagePlaceholder}>
+                            <Text style={styles.imageText}>Project Image</Text>
+                        </View>
+
                         <View style={styles.headerContent}>
                             <View style={styles.titleRow}>
                                 <Text style={styles.title}>{project.title}</Text>
@@ -127,8 +132,24 @@ const styles = StyleSheet.create({
     padding: 24,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'flex-start',
+    alignItems: 'center', // Changed to center for better alignment with image
     cursor: 'pointer',
+    gap: 20,
+  },
+  imagePlaceholder: {
+    width: 60,
+    height: 60,
+    borderRadius: 12,
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.1)',
+  },
+  imageText: {
+    color: 'rgba(255, 255, 255, 0.3)',
+    fontSize: 10,
+    textAlign: 'center',
   },
   headerContent: {
     flex: 1,

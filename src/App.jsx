@@ -7,6 +7,7 @@ import Skills from './components/Skills';
 import Projects from './components/Projects';
 import Education from './components/Education';
 import Contact from './components/Contact';
+import Navbar from './components/Navbar';
 
 function App() {
   // Simple scroll reset on mount
@@ -16,18 +17,23 @@ function App() {
 
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
-          <View style={styles.heroWrapper}>
+      <Navbar />
+      <ScrollView 
+        contentContainerStyle={styles.scrollContent} 
+        showsVerticalScrollIndicator={false}
+        className="scroll-container" // Hook for navbar scroll detection
+      >
+          <View style={styles.heroWrapper} id="hero">
             <AntigravityHero />
           </View>
           
           <View style={styles.sections}>
-            <Summary />
-            <Experience />
-            <Skills />
-            <Projects />
-            <Education />
-            <Contact />
+            <View id="about"><Summary /></View>
+            <View id="experience"><Experience /></View>
+            <View id="skills"><Skills /></View>
+            <View id="projects"><Projects /></View>
+            <View id="education"><Education /></View>
+            <View id="contact"><Contact /></View>
           </View>
       </ScrollView>
     </View>
