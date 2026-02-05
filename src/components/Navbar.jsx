@@ -59,7 +59,7 @@ export default function Navbar() {
     transform: 'translateX(-50%)',
     zIndex: 100,
     paddingVertical: isMobile ? 6 : 8,
-    paddingHorizontal: isMobile ? 6 : 8,
+    paddingHorizontal: isMobile ? 12 : 8, // More horizontal padding for scroll container
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
@@ -68,8 +68,9 @@ export default function Navbar() {
     borderRadius: 100, // Capsule shape
     border: '1px solid rgba(255,255,255,0.1)',
     boxShadow: '0 4px 20px rgba(0,0,0,0.2)',
-    maxWidth: '90%', // Prevent overflow on small screens
-    overflowX: 'auto', // Add scroll for very small phones
+    maxWidth: isMobile ? '90%' : 'auto', // Limit width on mobile
+    overflowX: isMobile ? 'auto' : 'visible', // Enable scroll on mobile
+    whiteSpace: 'nowrap', // Keep items in one line
   };
 
   return (

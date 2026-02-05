@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    flexWrap: 'wrap',
+    flexWrap: 'wrap', // Allow wrapping
     marginBottom: 16,
     gap: 10,
   },
@@ -97,7 +97,8 @@ const styles = StyleSheet.create({
     fontFamily: 'system-ui, -apple-system, sans-serif',
   },
   meta: {
-    alignItems: 'flex-end',
+    alignItems: 'flex-start', // Align left on mobile if wrapped
+    justifyContent: 'center',
   },
   duration: {
     fontSize: 14,

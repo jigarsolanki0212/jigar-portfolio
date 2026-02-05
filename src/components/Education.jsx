@@ -66,11 +66,13 @@ const styles = StyleSheet.create({
       alignItems: 'center',
   },
   subtitle: {
-    fontSize: 22,
+    fontSize: 20, // Slightly smaller base
     color: '#ffffff',
     marginBottom: 20,
     fontWeight: '600',
     fontFamily: 'system-ui, -apple-system, sans-serif',
+    textAlign: 'center',
+    maxWidth: '100%',
   },
   card: {
     width: '100%',
