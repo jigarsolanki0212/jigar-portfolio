@@ -1,8 +1,6 @@
 import React from 'react';
-import { View, StyleSheet, Dimensions } from 'react-native';
+import { View, StyleSheet, useWindowDimensions } from 'react-native';
 import { motion } from 'framer-motion';
-
-const { width } = Dimensions.get('window');
 
 const TextReveal = ({ text, isMobile }) => {
   const letters = Array.from(text);
@@ -66,6 +64,7 @@ const TextReveal = ({ text, isMobile }) => {
 };
 
 export default function SectionWrapper({ children, title, id, footer }) {
+  const { width } = useWindowDimensions();
   const isMobile = width < 768;
 
   const sectionVariants = {

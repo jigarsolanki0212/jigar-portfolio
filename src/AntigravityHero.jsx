@@ -1,11 +1,14 @@
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, useWindowDimensions } from 'react-native';
 import { motion } from 'framer-motion';
 import { profileData } from './data';
 
 export default function AntigravityHero() {
+  const { width } = useWindowDimensions();
+  const isMobile = width < 768;
+
   return (
-    <View style={styles.container}>
-      <View style={styles.centerContent}>
+    <View style={[styles.container, { paddingTop: isMobile ? 80 : 100 }]}>
+      <View style={[styles.centerContent, { paddingHorizontal: isMobile ? 20 : 0 }]}>
         <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -18,21 +21,27 @@ export default function AntigravityHero() {
             style={{
                 borderRadius: 24,
                 cursor: 'default',
+                width: '100%',
+                maxWidth: 800,
             }}
         >
-        <View style={[styles.profileGlass, { backdropFilter: 'blur(12px)' }]}>
+        <View style={[styles.profileGlass, { 
+            backdropFilter: 'blur(12px)',
+            paddingVertical: isMobile ? 24 : 30,
+            paddingHorizontal: isMobile ? 24 : 40,
+        }]}>
             <Image 
               source={{ uri: '/jigar.png' }} 
-              style={styles.profileImage}
+              style={[styles.profileImage, { width: isMobile ? 100 : 120, height: isMobile ? 100 : 120, borderRadius: isMobile ? 50 : 60 }]}
               resizeMode="cover"
             />
-            <Text style={styles.name}>Jigar Solanki</Text>
-            <Text style={styles.role}>Senior React Native Developer</Text>
+            <Text style={[styles.name, { fontSize: isMobile ? 32 : 48 }]}>Jigar Solanki</Text>
+            <Text style={[styles.role, { fontSize: isMobile ? 16 : 20 }]}>Senior React Native Developer</Text>
             
             <View style={styles.skillsContainer}>
                 {['React Native', 'Reanimated', 'Firebase', 'App Deployment'].map((skill) => (
                     <View key={skill} style={styles.skillBadge}>
-                        <Text style={styles.skillText}>{skill}</Text>
+                        <Text style={[styles.skillText, { fontSize: isMobile ? 12 : 14 }]}>{skill}</Text>
                     </View>
                 ))}
             </View>
@@ -40,7 +49,7 @@ export default function AntigravityHero() {
             <View style={styles.divider} />
             
             <Text style={styles.aboutTitle}>Architecting Mobile Experiences</Text>
-            <Text style={styles.summaryText}>{profileData.summary}</Text>
+            <Text style={[styles.summaryText, { fontSize: isMobile ? 14 : 16 }]}>{profileData.summary}</Text>
         </View>
         </motion.div>
       </View>
@@ -56,18 +65,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: '100%',
     height: '100%',
-    paddingTop: 100, // Push content down to avoid navbar overlap
   },
   centerContent: {
     zIndex: 20,
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%',
-    maxWidth: 800,
   },
   profileGlass: {
-    paddingVertical: 30,
-    paddingHorizontal: 40,
     borderRadius: 24,
     backgroundColor: 'rgba(15, 23, 42, 0.6)',
     borderWidth: 1,
@@ -77,18 +82,15 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 10 },
     shadowOpacity: 0.5,
     shadowRadius: 20,
+    width: '100%',
   },
   profileImage: {
-    width: 120,
-    height: 120,
-    borderRadius: 60,
     borderWidth: 3,
     borderColor: 'rgba(255, 255, 255, 0.2)',
     marginBottom: 20,
     backgroundColor: 'rgba(255, 255, 255, 0.05)',
   },
   name: {
-    fontSize: 48,
     fontWeight: '700',
     color: '#ffffff',
     textAlign: 'center',
@@ -96,7 +98,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Outfit, sans-serif',
   },
   role: {
-    fontSize: 20,
     color: '#94a3b8',
     textAlign: 'center',
     marginBottom: 24,
@@ -118,7 +119,6 @@ const styles = StyleSheet.create({
   },
   skillText: {
     color: '#e2e8f0',
-    fontSize: 14,
     fontWeight: '500',
   },
   divider: {
@@ -136,7 +136,6 @@ const styles = StyleSheet.create({
     letterSpacing: 0.5,
   },
   summaryText: {
-    fontSize: 16,
     lineHeight: 26,
     color: '#cbd5e1',
     textAlign: 'center',

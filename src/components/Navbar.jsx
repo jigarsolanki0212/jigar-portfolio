@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, useWindowDimensions } from 'react-native';
 import { motion } from 'framer-motion';
 
 const Links = [
@@ -12,6 +12,8 @@ const Links = [
 
 export default function Navbar() {
   const [activeTab, setActiveTab] = useState('hero');
+  const { width } = useWindowDimensions();
+  const isMobile = width < 768;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -52,12 +54,12 @@ export default function Navbar() {
 
   const navContainerStyle = {
     position: 'fixed',
-    top: 20, // Little bottom from top
+    top: 20,
     left: '50%',
     transform: 'translateX(-50%)',
     zIndex: 100,
-    paddingVertical: 8,
-    paddingHorizontal: 8,
+    paddingVertical: isMobile ? 6 : 8,
+    paddingHorizontal: isMobile ? 6 : 8,
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
@@ -66,6 +68,8 @@ export default function Navbar() {
     borderRadius: 100, // Capsule shape
     border: '1px solid rgba(255,255,255,0.1)',
     boxShadow: '0 4px 20px rgba(0,0,0,0.2)',
+    maxWidth: '90%', // Prevent overflow on small screens
+    overflowX: 'auto', // Add scroll for very small phones
   };
 
   return (
@@ -75,7 +79,7 @@ export default function Navbar() {
           <TouchableOpacity 
             key={link.id} 
             onPress={() => scrollToSection(link.id)}
-            style={styles.navLink}
+            style={[styles.navLink, { paddingHorizontal: isMobile ? 12 : 16, paddingVertical: isMobile ? 6 : 8 }]}
             activeOpacity={0.8}
           >
             {activeTab === link.id && (
@@ -92,7 +96,8 @@ export default function Navbar() {
             )}
             <Text style={[
               styles.navText, 
-              activeTab === link.id && styles.activeNavText
+              activeTab === link.id && styles.activeNavText,
+              { fontSize: isMobile ? 12 : 14 }
             ]}>
               {link.label}
             </Text>
@@ -109,16 +114,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   navLink: {
-    paddingVertical: 8,
-    paddingHorizontal: 16,
     borderRadius: 100,
     position: 'relative', // For absolute positioning of the pill
     justifyContent: 'center',
     alignItems: 'center',
+    minWidth: 50, // Minimum touch area
   },
   navText: {
     color: '#94a3b8',
-    fontSize: 14,
     fontWeight: '500',
     fontFamily: 'Outfit, sans-serif',
     zIndex: 1, // Above the pill
