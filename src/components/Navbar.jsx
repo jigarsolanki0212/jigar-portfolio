@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Platform, Dimensions } from 'react-native';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { motion } from 'framer-motion';
 
 const Links = [
-  { id: 'hero', label: 'About' },
+  { id: 'hero', label: 'Home' },
+  { id: 'about', label: 'About' },
   { id: 'experience', label: 'Experience' },
   { id: 'skills', label: 'Skills' },
   { id: 'projects', label: 'Projects' },
@@ -12,152 +12,122 @@ const Links = [
 ];
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [activeTab, setActiveTab] = useState('hero');
 
   useEffect(() => {
     const handleScroll = () => {
-      // Find the scrollable container or check window scroll if container scroll is promoted
-      const scrollY = window.scrollY || document.querySelector('.scroll-container')?.scrollTop || 0;
-      setScrolled(scrollY > 50);
+      // Simple Scroll Spy
+      const sections = Links.map(link => document.getElementById(link.id));
+      const scrollY = window.scrollY || 0;
+      const viewportHeight = window.innerHeight;
+      
+      // Find the current section
+      let current = 'hero';
+      
+      for (const section of sections) {
+        if (!section) continue;
+        const rect = section.getBoundingClientRect();
+        // If the section top is near the top of the viewport (or we scrolled past it)
+        // We use a threshold (e.g. 1/3 of screen) to determine "active"
+        if (rect.top <= viewportHeight / 3 && rect.bottom >= viewportHeight / 3) {
+           current = section.id;
+        }
+      }
+      setActiveTab(current);
     };
 
-    // Attach to window and potential container
-    window.addEventListener('scroll', handleScroll, true);
-    return () => window.removeEventListener('scroll', handleScroll, true);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    // Trigger once on mount
+    handleScroll();
+    
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const scrollToSection = (id) => {
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
-      setIsOpen(false);
+      setActiveTab(id); // Immediate feedback
     }
   };
 
   const navContainerStyle = {
     position: 'fixed',
-    top: 0,
-    right: 0,
-    left: 0,
+    top: 20, // Little bottom from top
+    left: '50%',
+    transform: 'translateX(-50%)',
     zIndex: 100,
-    paddingVertical: 20,
-    paddingHorizontal: 30,
+    paddingVertical: 8,
+    paddingHorizontal: 8,
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'flex-end',
     alignItems: 'center',
-    transition: 'all 0.3s ease',
-    background: scrolled ? 'rgba(15, 23, 42, 0.8)' : 'transparent',
-    backdropFilter: scrolled ? 'blur(10px)' : 'none',
-    borderBottom: scrolled ? '1px solid rgba(255,255,255,0.05)' : 'none',
+    background: 'rgba(15, 23, 42, 0.6)', // Glassmorphism
+    backdropFilter: 'blur(12px)',
+    borderRadius: 100, // Capsule shape
+    border: '1px solid rgba(255,255,255,0.1)',
+    boxShadow: '0 4px 20px rgba(0,0,0,0.2)',
   };
 
   return (
-    <>
-      <motion.nav style={navContainerStyle}>
-        {/* Desktop Menu */}
-        <View style={styles.desktopMenu}>
-          {Links.map((link) => (
-            <TouchableOpacity 
-              key={link.id} 
-              onPress={() => scrollToSection(link.id)}
-              style={styles.navLink}
-            >
-              <Text style={styles.navText}>{link.label}</Text>
-            </TouchableOpacity>
-          ))}
-        </View>
-
-        {/* Mobile Menu Toggle */}
-        <TouchableOpacity style={styles.mobileToggle} onPress={() => setIsOpen(!isOpen)}>
-          {isOpen ? <X color="#fff" size={24} /> : <Menu color="#fff" size={24} />}
-        </TouchableOpacity>
-      </motion.nav>
-
-      {/* Mobile Menu Dropdown */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            style={{
-              position: 'fixed',
-              top: 70,
-              right: 20,
-              backgroundColor: 'rgba(30, 41, 59, 0.95)',
-              backdropFilter: 'blur(12px)',
-              padding: 20,
-              borderRadius: 16,
-              border: '1px solid rgba(255,255,255,0.1)',
-              zIndex: 99,
-              minWidth: 200,
-            }}
+    <motion.nav style={navContainerStyle}>
+      <View style={styles.menuRow}>
+        {Links.map((link) => (
+          <TouchableOpacity 
+            key={link.id} 
+            onPress={() => scrollToSection(link.id)}
+            style={styles.navLink}
+            activeOpacity={0.8}
           >
-            {Links.map((link) => (
-              <TouchableOpacity 
-                key={link.id} 
-                onPress={() => scrollToSection(link.id)}
-                style={styles.mobileLink}
-              >
-                <Text style={styles.mobileText}>{link.label}</Text>
-              </TouchableOpacity>
-            ))}
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
+            {activeTab === link.id && (
+              <motion.div
+                layoutId="active-pill"
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  backgroundColor: 'rgba(255, 255, 255, 0.15)',
+                  borderRadius: 100,
+                }}
+                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              />
+            )}
+            <Text style={[
+              styles.navText, 
+              activeTab === link.id && styles.activeNavText
+            ]}>
+              {link.label}
+            </Text>
+          </TouchableOpacity>
+        ))}
+      </View>
+    </motion.nav>
   );
 }
 
 const styles = StyleSheet.create({
-  desktopMenu: {
+  menuRow: {
     flexDirection: 'row',
-    gap: 32,
-    display: 'none', // Hidden on mobile by default, shown via media query in real CSS or conditional rendering
-    '@media (min-width: 768px)': {
-      display: 'flex',
-    },
+    alignItems: 'center',
   },
   navLink: {
     paddingVertical: 8,
+    paddingHorizontal: 16,
+    borderRadius: 100,
+    position: 'relative', // For absolute positioning of the pill
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   navText: {
-    color: '#e2e8f0',
-    fontSize: 16,
+    color: '#94a3b8',
+    fontSize: 14,
     fontWeight: '500',
     fontFamily: 'Outfit, sans-serif',
+    zIndex: 1, // Above the pill
+    position: 'relative',
+    transition: 'color 0.2s ease',
   },
-  mobileToggle: {
-    padding: 8,
-    backgroundColor: 'rgba(255,255,255,0.1)',
-    borderRadius: 8,
-    // Show only on small screens logic typically handled by media queries or resizing
-    // For simplicity in RNW, we can rely on window width or CSS. 
-    // Here we'll just show it if width < 768 in production, but for now we render both and hide desktop via CSS logic or just custom view.
-  },
-  mobileLink: {
-    paddingVertical: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: 'rgba(255,255,255,0.05)',
-  },
-  mobileText: {
-    color: '#fff',
-    fontSize: 18,
-    fontWeight: '500',
-    fontFamily: 'Outfit, sans-serif',
+  activeNavText: {
+    color: '#ffffff',
+    fontWeight: '600',
   }
 });
-
-// Add a quick style injection for responsive hiding since StyleSheet doesn't fully support media queries the same way
-const styleSheet = document.createElement("style");
-styleSheet.innerText = `
-  @media (min-width: 768px) {
-    div[data-class="mobileToggle"] { display: none !important; }
-  }
-  @media (max-width: 767px) {
-    div[data-class="desktopMenu"] { display: none !important; }
-  }
-`;
-document.head.appendChild(styleSheet);

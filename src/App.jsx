@@ -8,6 +8,7 @@ import Projects from './components/Projects';
 import Education from './components/Education';
 import Contact from './components/Contact';
 import Navbar from './components/Navbar';
+import FloatingBackground from './components/FloatingBackground';
 
 function App() {
   // Simple scroll reset on mount
@@ -17,6 +18,7 @@ function App() {
 
   return (
     <View style={styles.container}>
+      <FloatingBackground />
       <Navbar />
       <ScrollView 
         contentContainerStyle={styles.scrollContent} 
@@ -43,7 +45,7 @@ function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#0f172a',
+    // Background handled by body and FloatingBackground
     height: '100vh', // Ensure full viewport height
   },
   scrollContent: {
@@ -55,7 +57,7 @@ const styles = StyleSheet.create({
   },
   sections: {
       paddingBottom: 40,
-      backgroundColor: '#0f172a', // Continue background
+      // Transparent to show floating background
   }
 });
 

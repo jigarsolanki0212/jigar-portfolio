@@ -5,7 +5,7 @@ export const profileData = {
   title: "Senior React Native Developer",
   summary: `React Native Developer with 5.8+ years of professional experience building high-performance mobile applications for iOS and Android across OTT, eCommerce, fintech, and service-based domains. I specialize in end-to-end mobile app development, from UI/UX implementation to production deployment on the App Store and Play Store. I have worked extensively on OTT platforms, payment integrations, in-app subscriptions, and performance optimization for real-world, large-scale applications.`,
   contact: {
-    email: "jigssolanki82@gmail.com",
+    email: "jigarsolanki.dev@gmail.com",
     phone: "9157772566",
     linkedin: "www.linkedin.com/in/jigar-s",
     location: "Ahmedabad, India"
